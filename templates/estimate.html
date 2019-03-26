@@ -1,0 +1,22 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ board.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item">Estimate</li>
+        <li class="breadcrumb-item active">For: {{ estimate.client }}</li>
+      </ol>
+    </div>
+	<div class="container">
+		<ol>
+			<li>Year: {{ estimate.year }} </li>
+			<li>Make: {{ estimate.make }} </li>
+			<li>Model: {{ estimate.model }} </li> 
+		</ol>
+  </body>
+</html>
