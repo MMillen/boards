@@ -19,14 +19,14 @@ from django.urls import reverse_lazy
 
 from django.utils.decorators import method_decorator 
 
-from django.views.generic import UpdateView 
+from django.views.generic import UpdateView
 
 
 
-from .models import Board, Topic, Post
+from .models import Board, Topic, Post, smPost, Comment, Profile
 from .models import Estimate
 
-from .forms import NewTopicForm, PostForm 
+from .forms import NewTopicForm, PostForm, SmPostForm, CommentForm
 
 
 
@@ -38,7 +38,7 @@ import requests
 @method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
 	model = User 
-	fields = ('first_name', 'last_name', 'email', )
+	fields = ('first_name', 'last_name', 'email' )
 	template_name = 'my_account.html'
 	success_url = reverse_lazy('my_account')
 	
@@ -117,5 +117,70 @@ def api(request):
 	Title = json_data['articles'][0]['title'].encode("utf-8").replace("'","") 
 
 	return render(request, 'api.html',{'title':Title}) 
+	
+def smposts(request):
+	Posts = smPost.objects.all().order_by('-last_updated')
+	if request.method == 'POST':
+		form = SmPostForm(request.POST)
+		if form.is_valid():
+			smpost = form.save(commit=False)
+			smpost.starter = request.user 
+			smpost.save()
+			return redirect('smposts')
+		else:
+			return redirect('smposts')
+			
+		commentform = CommentForm(request.POST)
+		if commentform.is_valid():
+			comment = commentform.save(commit=False)
+			comment.created_by = request.user 
+			#comment.smpost= request.post.id 
+			comment.save()
+			return redirect('smposts')
+	else:
+		form = SmPostForm()
+		commentForm = CommentForm()
+	return render(request, 'smposts.html', {'posts':Posts, 'form':form, 'commentform':commentForm}) 
+	
+	
+def commenttest(request):
+	if request.method == 'POST':
+		commentform = CommentForm(request.POST)
+		if commentform.is_valid():
+			comment = commentform.save(commit=False)
+			comment.created_by = request.user 
+			comment.save()
+			return redirect('commenttest')
+	else:
+		commentForm = CommentForm()
+	return render(request, 'commenttest.html', {'commentform':commentForm}) 		
+	
+	
+def cbvposts(request):
+	Posts = smPost.objects.all().order_by('-last_updated')
+	if request.method == 'POST':
+		form = SmPostForm(request.POST)
+		commentform = CommentForm(request.POST, initial={'smpost': 'post.id'})
+		success = False 
+		if ('Post' in request.POST and form.is_valid()):
+			smpost = form.save(commit=False)
+			smpost.starter = request.user 
+			smpost.save()	
+			success = True
+			
+		if ('Comment' in request.POST and commentform.is_valid()):
+			data = request.POST.copy()
+			comment = commentform.save(commit=False)
+			comment.created_by = request.user 
+			comment.smpost_id= data.get('postid')
+			comment.save()
+			success = True
+			
+		if success:
+			return redirect('cbvposts')
+	else:
+		form = SmPostForm()
+		commentForm = CommentForm()
+	return render(request, 'smposts.html', {'posts':Posts, 'form':form, 'commentform':commentForm}) 
 
 # Create your views here.

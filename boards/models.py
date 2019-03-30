@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Board(models.Model):
 	name = models.CharField(max_length=30, unique=True)
@@ -52,8 +54,37 @@ class Estimate(models.Model):
 	
 	def __str__(self):
 		return self.year + ' ' + self.make + ' ' + self.model 
+		
+		
+class smPost(models.Model):
+	text = models.CharField(max_length=255)
+	last_updated = models.DateTimeField(auto_now_add=True)
+	starter = models.ForeignKey(User, related_name='smpost')
+	
+	def __str__(self):
+		return self.text 
 	
 	
+class Comment(models.Model):
+	commenttext = models.CharField(max_length=255)
+	smpost = models.ForeignKey(smPost, related_name='comments')
+	created_by = models.ForeignKey(User, related_name='comments') 
+	
+	def __str__(self):
+		return self.commenttext 
+	
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    steamid = models.TextField(max_length=500, blank=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()	
 
 
 # Create your models here.

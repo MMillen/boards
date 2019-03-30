@@ -21,7 +21,7 @@ from boards import views
 from accounts import views as accounts_views
 
 urlpatterns = [
-	url(r'^$', views.BoardListView.as_view(),  name='home'),
+	url(r'^$', views.cbvposts,  name='home'),
 	url(r'^signup/$', accounts_views.signup, name='signup'),
 	url(r'^api/$', views.api, name='api'),
 	url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
@@ -34,4 +34,7 @@ urlpatterns = [
 	url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
 	url(r'^settings/account/$', views.UserUpdateView.as_view(), name='my_account'),
     url(r'^admin/', admin.site.urls),
+	url(r'^smposts/', views.smposts, name='smposts'),
+	url(r'^commenttest/', views.commenttest, name='commenttest'),
+	url(r'^cbvposts/', views.cbvposts, name='cbvposts')
 ]
