@@ -73,6 +73,20 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.commenttext 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     steamid = models.TextField(max_length=500, blank=True)

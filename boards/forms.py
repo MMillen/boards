@@ -1,5 +1,7 @@
 from django import forms 
-from .models import Topic, Post, smPost, Comment
+from .models import Topic, Post, smPost, Comment, Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class NewTopicForm(forms.ModelForm):
 	message = forms.CharField(
@@ -32,5 +34,20 @@ class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment 
 		fields = ['commenttext' ]
+		
+		
+class UserForm(forms.ModelForm):
+	class Meta:
+		model = User 
+		fields = ('first_name', 'last_name', 'email')
+		
+class ProfileForm(forms.ModelForm):
+	
+	steamid = forms.CharField(
+		widget = forms.Textarea(attrs={'rows':1}), max_length=20
+		)
+	class Meta:
+		model = Profile 
+		fields = ('steamid',)
 		
 		

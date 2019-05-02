@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<body style="background-color:#e0e0eb;">
+<style>
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+
+
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+.navbar{
+	margin-bottom:0px;
+	}
+	
+	
+	.navbar-nav { 
+    flex-direction: row;
+	margin: 0px;
+}
+
+	.navbar-header { 
+    flex-direction: row;
+	display: inline-block;
+	margin:0px;
+	padding-top: 5px;
+}
+
+ul {
+	margin:0px;padding:0px;padding-inline-start:4px;}
+	
+
+.nav>li {
+    display: inline-block;
+	float: right;
+	}
+
+
+	
+	
+	.btn-group-justified,.btn-group, .btn-primary, .btn-primary:visited, .btn {
+    background-color: #8064A2 !important;
+	border-color: #8064A2 !important;
+	
+}
+
+	.btn-primary:hover, .btn-primary:active {
+    background-color: #9999ff !important;
+	border-color: #9999ff !important;
+	
+}
+
+
+ </style>
+ 
+<head>
+<div style="margin-bottom:0px;">
+
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+<div class ="nav navbar-header"><img class="img-responsive" src="logo.png" style="height:40px;padding:3px;margin:0px'"></div>
+    <ul class="nav navbar-nav navbar-right">
+		{% if user.is_authenticated %}
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">{{ user.username }}
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			<li><a href="{% url 'updateprofile' %}">Profile</a></li>
+			<li><a href="{% url 'logout' %}">Log out</a></li>
+			
+			</ul>
+			</li>
+		{% else %}
+      <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+	  <li><a href="{% url 'login' %}" "><span class="glyphicon glyphicon-log-in"></span> Login</a>
+	   {% endif %}
+    </ul>
+	
+	
+  </div>
+</nav>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-group btn-group-justified">
+<div class="btn-group">
+  <a href = "{% url 'home' %}"><button type="button" class="btn btn-primary">Feed</button></a>
+ </div>
+ <div class="btn-group">
+  <a href="{% url 'csgostats' %}"><button type="button" class="btn btn-primary">Stats</button></a>
+ </div>
+</div>
+</div>
+
+</head>
+<div class="row">
+  <div class="col-sm-3 hidden-xs"></div>
+     <!--Begin Posts/feed area -->
+	<div class="col-sm-6">
+		<br />
+  
+  <div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-1">
+
+		
+
+			</div>
+  
+			<div class="col-xs-10">
+				<b>Error: Steam ID invalid</b>   
+					<br />
+		
+			</div>
+ 
+			<div class = "col-xs-1">
+				<b>--</b>
+			</div>
+		</div>
+    </div>
+  
+   <div class="panel-body" style="word-break:break-all;">
+		
+   </div>
+  
+   <div class="panel-footer">
+
+
+	Oops, looks like either your SteamID is invalid or your Steam profile is not set to public. Click <a href='/updateprofile/'>here</a>. to go to update your SteamID.
+
+  
+  </div>
+
+	
+	
+
+
+ </div>
+
+ 
+ 
+ </div>
+</div>
+</div>

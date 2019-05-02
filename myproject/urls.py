@@ -36,5 +36,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^smposts/', views.smposts, name='smposts'),
 	url(r'^commenttest/', views.commenttest, name='commenttest'),
-	url(r'^cbvposts/', views.cbvposts, name='cbvposts')
+	url(r'^cbvposts/', views.cbvposts, name='cbvposts'),
+	url(r'^updateprofile/', views.update_profile, name='updateprofile'),
+	url(r'^update_loading/', views.update_loading, name='update_loading'),
+	url(r'^csgostats/', views.csgostats, name='csgostats'),
+	url(r'^csgostatstest/', views.csgostatstest, name='csgostatstest'),
+	url(r'^liveplot/', views.liveplot, name='liveplot')
 ]

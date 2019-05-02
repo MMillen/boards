@@ -90,13 +90,23 @@ ul {
  
 <head>
 <div style="margin-bottom:0px;">
+<head>
+<div style="margin-bottom:0px;">
+
 <nav class="navbar navbar-inverse navbar-static-top">
   <div class="container-fluid">
 <div class ="nav navbar-header"><img class="img-responsive" src="logo.png" style="height:40px;padding:3px;margin:0px'"></div>
     <ul class="nav navbar-nav navbar-right">
 		{% if user.is_authenticated %}
-			<li style="color:white;">{{ user.username }}</li>
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">{{ user.username }}
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			<li><a href="{% url 'updateprofile' %}">Profile</a></li>
 			<li><a href="{% url 'logout' %}">Log out</a></li>
+			
+			</ul>
+			</li>
 		{% else %}
       <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
 	  <li><a href="{% url 'login' %}" "><span class="glyphicon glyphicon-log-in"></span> Login</a>
@@ -107,13 +117,16 @@ ul {
   </div>
 </nav>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
 
 <div class="btn-group btn-group-justified">
 <div class="btn-group">
-  <button type="button" class="btn btn-primary">Feed</button>
+  <a href = "{% url 'home' %}"><button type="button" class="btn btn-primary">Feed</button></a>
  </div>
  <div class="btn-group">
-  <a href="metrixstats.html"><button type="button" class="btn btn-primary">Stats</button></a>
+  <a href="{% url 'csgostats' %}"><button type="button" class="btn btn-primary">Stats</button></a>
  </div>
 </div>
 </div>
@@ -252,12 +265,13 @@ ul {
 	
 	
   {% if user.is_authenticated %}
+  <div id="showcommentform">	
 	<div class="panel-footer">
 		<form method="post" novalidate style="padding:5px;">
     {% csrf_token %}
    <!-- {{ commentform.smpost.value|default_if_none:post.id }} -->
 	{% for field in commentform %}
-	<div id="showcommentform">	
+	
 		<div class="form-group">
 			
 			

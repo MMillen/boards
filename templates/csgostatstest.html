@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<body style="background-color:#e0e0eb;">
+<style>
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+
+
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+.navbar{
+	margin-bottom:0px;
+	}
+	
+	
+	.navbar-nav { 
+    flex-direction: row;
+	margin: 0px;
+}
+
+	.navbar-header { 
+    flex-direction: row;
+	display: inline-block;
+	margin:0px;
+	padding-top: 5px;
+}
+
+ul {
+	margin:0px;padding:0px;padding-inline-start:4px;}
+	
+
+.nav>li {
+    display: inline-block;
+	float: right;
+	}
+
+
+	
+	
+	.btn-group-justified,.btn-group, .btn-primary, .btn-primary:visited, .btn {
+    background-color: #8064A2 !important;
+	border-color: #8064A2 !important;
+	
+}
+
+	.btn-primary:hover, .btn-primary:active {
+    background-color: #9999ff !important;
+	border-color: #9999ff !important;
+	
+}
+
+
+ </style>
+ 
+<head>
+<div style="margin-bottom:0px;">
+
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+<div class ="nav navbar-header"><img class="img-responsive" src="logo.png" style="height:40px;padding:3px;margin:0px'"></div>
+    <ul class="nav navbar-nav navbar-right">
+		{% if user.is_authenticated %}
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">{{ user.username }}
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			<li><a href="{% url 'updateprofile' %}">Profile</a></li>
+			<li><a href="{% url 'logout' %}">Log out</a></li>
+			
+			</ul>
+			</li>
+		{% else %}
+      <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+	  <li><a href="{% url 'login' %}" "><span class="glyphicon glyphicon-log-in"></span> Login</a>
+	   {% endif %}
+    </ul>
+	
+	
+  </div>
+</nav>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-group btn-group-justified">
+<div class="btn-group">
+  <a href = "{% url 'home' %}"><button type="button" class="btn btn-primary">Feed</button></a>
+ </div>
+ <div class="btn-group">
+  <a href="{% url 'csgostats' %}"><button type="button" class="btn btn-primary">Stats</button></a>
+ </div>
+</div>
+</div>
+
+</head>
+
+
+
+
+
+<!-- CONTENT AREA for feed --------------------------------------------------->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100&effect=neon">
+
+<div class="row">
+  <div class="col-sm-3 hidden-xs" style="background-color:black;"></div>
+     <!--Begin Posts/feed area -->
+	<div class="col-sm-6"  style="background-image:url('{% static 'img/qqqqqqcsgo.png' %}');background-repeat: no-repeat;background-color:black;">
+		<br />
+		
+		
+		
+		
+		
+ 
+
+ 		
+		
+		
+		<!--- GAME LOGO -->
+		<div class="row">
+			<div class="col-xs-6">
+
+				<img src="{% static 'img/csgo-logo.png' %}" class="img-rounded" style="height:80px;">
+
+			</div>
+  
+			<div class="col-xs-1">
+
+			</div>
+
+			<div class = "col-xs-5">
+
+			</div>
+		</div>		
+  
+
+		<!-- Player Name -->
+		<div class="row">
+			<div class="col-xs-2">
+
+				<img src="{{ stats.avatar }}" class="img-rounded" style="height:60px;">
+
+			</div>
+  
+			<div class="col-xs-8" style="color:white;text-align:left;margin-right:10px;">
+				<b>{{ stats.name }}</b>
+					<br />
+			
+			</div>
+ 
+			<div class = "col-xs-2">
+				<b>--</b>
+			</div>
+		</div>
+		
+		
+		
+		<br /><br /><br /><br /><br /><br /><br />
+		<!--Key Stats logo-->
+		<div class="row">
+			<div class="col-xs-8">
+
+		
+
+			</div>
+  
+			<div class="col-xs-2">
+
+			</div>
+
+			<div class = "col-xs-2">
+			</div>
+		</div>	
+
+	<br />	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<div class="row" style="body {font-family: Lato; font-size: 25px;background: #111;text-align: center;}">
+			<div class="col-xs-6">
+
+				<div class="font-effect-neon" style="font-size:30px;">{{ stats.killspermatch }}</div>
+
+			</div>
+  
+
+
+			<div class = "col-xs-6">
+			<div class="font-effect-neon" style="text-align:right;font-size:30px;">{{ stats.scorepermatch }}</div>
+			</div>
+		</div>	 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<!-- Key stats headers-->
+		<div class="row" style="body {font-family: Lato; font-size: 8em;background: #111;text-align: center;}">
+			<div class="col-xs-4">
+
+				<div class="font-effect-neon">Kill/Death Ratio</div>
+
+			</div>
+  
+			<div class="col-xs-4">
+				<center><div class="font-effect-neon">Overall Accuracy</div></center>
+			</div>
+
+			<div class = "col-xs-4">
+			<div class="font-effect-neon" style="text-align:right;">Best Weapon</div>
+			</div>
+		</div>	
+		<!-- key stats -->
+		
+		
+
+		 
+		<div class="row" style="body {font-family: Lato; font-size: 25px;background: #111;text-align: center;}">
+			<div class="col-xs-4">
+
+				<div class="font-effect-neon" style="font-size:30px;">{{ stats.KDR }}</div>
+
+			</div>
+  
+			<div class="col-xs-4">
+				<center><div class="font-effect-neon" style="font-size:30px;"><span class="Single">{{ acc }}</span>%</div></center>
+				
+				
+				
+
+  
+  
+
+
+
+
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$({ Counter: 0 }).animate({
+  Counter: $('.Single').text()
+}, {
+  duration: 1000,
+  easing: 'swing',
+  step: function() {
+    $('.Single').text(Math.ceil(this.Counter));
+  }
+});
+</script>	
+					
+				
+			</div>
+
+			<div class = "col-xs-4">
+			<div class="font-effect-neon" style="text-align:right;font-size:30px;">{{ stats.TopWeapon }}</div>
+			</div>
+		</div>	 
+
+		
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN TOP ROW CHARTS -->
+<br /> <br />
+
+		<div class="row">
+			<div class="col-md-6">
+
+
+
+
+
+
+		
+		
+		
+		    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+     var data = google.visualization.arrayToDataTable([
+        ['', '', { role: 'style' } ],
+        ['Total Kills', {{ stats.kills }}, 'stroke-color: #3a1abc; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2'],
+        ['Total Deaths', {{ stats.deaths }}, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+      ]);
+
+        // Set chart options
+        var options = {'title':'Total Kills and Deaths',
+                       'width':'100%',
+                       'height':300,
+					   'backgroundColor':'black',
+						'titleTextStyle': {
+							'color': 'white',
+							'auraColor': 'purple'
+						},
+						'hAxis': {
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'titleTextStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'gridlines':{
+								'color':'#1E4D6B'
+							}
+						},
+						'vAxis': {
+							minValue: 0,
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'titleTextStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							}
+						},
+						'legend': {
+							'position':'none',
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							}
+						},
+						'animation':{
+							'startup':'true',
+							'duration':1000,
+							'easing':'out'
+						}
+					   };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById('newchart'));
+        chart.draw(data, options);
+      }
+    </script>
+<div id='newchart' style="display:block;margin-left:auto;margin-right:auto;"></div>
+
+
+
+</div> <!--column end div -->
+
+
+
+
+<div class="col-md-6">
+
+		    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+     // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+     var data = google.visualization.arrayToDataTable([
+        ['', '', { role: 'style' } ],
+        ['{{ stats.TopWeapon }}', {{ stats.TopWeaponKills }}, 'stroke-color: #3a1abc; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2'],
+        ['{{ stats.SecondWeapon }}', {{ stats.SecondWeaponKills }}, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2'],
+		['{{ stats.ThirdWeapon }}', {{ stats.ThirdWeaponKills }}, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+      ]);
+
+        // Set chart options
+        var options = {'title':'Top 3 Weapons',
+                       'width':'100%',
+                       'height':300,
+					   'backgroundColor':'black',
+						'titleTextStyle': {
+							'color': 'white',
+							'auraColor': 'purple'
+						},
+						'hAxis': {
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'titleTextStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'gridlines':{
+								'color':'#1E4D6B'
+							}
+						},
+						'vAxis': {
+							minValue: 0,
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							},
+							'titleTextStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							}
+						},
+						'legend': {
+							'position':'none',
+							'textStyle': {
+								'color': 'white',
+								'auraColor': 'purple'
+							}
+						},
+						'animation':{
+							'startup':'true',
+							'duration':1000,
+							'easing':'out'
+						}
+					   };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById('newchart2'));
+        chart.draw(data, options);
+      }
+    </script>
+<div id='newchart2' style="display:block;margin-left:auto;margin-right:auto;"></div>
+
+</div> <!--column end div -->
+</div> <!-- row end div -->
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class="btn-group btn-group-justified">
+<div class="btn-group">
+  <button type="button" name="weapons" class="btn btn-primary">Weapons</button>
+ </div>
+ <div class="btn-group">
+  <button type="button" name="comparison" class="btn btn-primary">Comparison</button>
+ </div>
+</div>
+ <div name="weapons">
+  {% autoescape off %}
+
+
+{{ html }} 
+ {% endautoescape %}
+</div>
+<div name="comparison">
+	<img src="data:image/png;base64, {{ kdrimage }}" alt="somealt" style="width:100%;" />
+	<img src="data:image/png;base64, {{ accimage }}" alt="somealt" style="width:100%;" />
+</div>
+ 
+ 
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){ $("div[name='comparison']").hide();
+  $("button[name='comparison']").click(function(){
+    $("div[name='weapons']").hide();
+	 $("div[name='comparison']").show();
+  });
+  $("button[name='weapons']").click(function(){
+    $("div[name='weapons']").show();
+	 $("div[name='comparison']").hide();
+  });
+});
+</script>
+ 
+ 
+ 
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-metro.css">
+
+<br /> You play {{ team }} {{ percentteambias }} of the time.
+<br /> {{ testvar }} 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 		<!-- Player Name -->
+		<div class="row" style="background: rgba(46,49,49,0.2);margin:0px;padding:0px"">
+			<div class="col-xs-2 style="margin-right:0px;padding-right: 0px;">
+
+				<img src="{{ stats.avatar }}" class="img-rounded" style="height:60px;margin-right:0px;padding-right: 0px;">
+
+			</div>
+  
+			<div class="col-xs-8" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:25px;">
+				<b>{{ stats.name }}</b>
+					<br />
+			
+			</div>
+ 
+			<div class = "col-xs-2">
+				<b></b>
+			</div>
+		</div>
+ 
+ 		<!-- Player Name -->
+		<div class="row" style="background: rgba(46,49,49,0.2);margin:5px;padding:0px;">
+			<div class="col-xs-2" style="background-color:blue;">
+
+				
+
+			</div>
+  
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>
+ 			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			
+			<div class = "col-xs-2">
+				<b></b>
+			</div>
+		</div>
+		
+		
+		<div class="row" style="background: rgba(46,49,49,0.2);margin:5px;padding:0px;">
+			<div class="col-xs-2" style="background-color:blue;">
+
+				
+
+			</div>
+  
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<div class="font-effect-neon" ><b>{{stats.KDR}}</b></div>
+					<br />
+			
+			</div>
+ 			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			<div class="col-xs-1" style="color:white;text-align:left;margin-left:0px;margin-right:10px;font-size:15px;">
+				<b>KDR</b>
+					<br />
+			
+			</div>			
+			
+			<div class = "col-xs-2">
+				<b></b>
+			</div>
+		</div>		
+		
+				
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script> 
+ 
+ 
+ 
+ 
+ 
+ 
+  </div>
+  <!-- End Posts/feed area-->
+  
+   
+
+  
+  <div class="col-sm-3 hidden-xs" style="background-color:black;"></div>
+</div>
+
+<body>
+
+
+
+
+ 
+
+
+  
+</body>
+
+</html>

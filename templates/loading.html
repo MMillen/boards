@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<body style="background-color:#e0e0eb;">
+<style>
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+
+
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+.navbar{
+	margin-bottom:0px;
+	}
+	
+	
+	.navbar-nav { 
+    flex-direction: row;
+	margin: 0px;
+}
+
+	.navbar-header { 
+    flex-direction: row;
+	display: inline-block;
+	margin:0px;
+	padding-top: 5px;
+}
+
+ul {
+	margin:0px;padding:0px;padding-inline-start:4px;}
+	
+
+.nav>li {
+    display: inline-block;
+	float: right;
+	}
+
+
+	
+	
+	.btn-group-justified,.btn-group, .btn-primary, .btn-primary:visited, .btn {
+    background-color: #8064A2 !important;
+	border-color: #8064A2 !important;
+	
+}
+
+	.btn-primary:hover, .btn-primary:active {
+    background-color: #9999ff !important;
+	border-color: #9999ff !important;
+	
+}
+
+
+ </style>
+ 
+<head>
+<div style="margin-bottom:0px;">
+
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+<div class ="nav navbar-header"><img class="img-responsive" src="logo.png" style="height:40px;padding:3px;margin:0px'"></div>
+    <ul class="nav navbar-nav navbar-right">
+		{% if user.is_authenticated %}
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">{{ user.username }}
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+			<li><a href="{% url 'updateprofile' %}">Profile</a></li>
+			<li><a href="{% url 'logout' %}">Log out</a></li>
+			
+			</ul>
+			</li>
+		{% else %}
+      <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+	  <li><a href="{% url 'login' %}" "><span class="glyphicon glyphicon-log-in"></span> Login</a>
+	   {% endif %}
+    </ul>
+	
+	
+  </div>
+</nav>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-group btn-group-justified">
+<div class="btn-group">
+  <a href = "{% url 'home' %}"><button type="button" class="btn btn-primary">Feed</button></a>
+ </div>
+ <div class="btn-group">
+  <a href="{% url 'csgostats' %}"><button type="button" class="btn btn-primary">Stats</button></a>
+ </div>
+</div>
+</div>
+
+</head>
+
+<style>
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<br /> <br /> 
+<center>
+<div class="loader"></div>
+</center>
+
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "/updateprofile/";
+        }, 2000);
+    </script>
